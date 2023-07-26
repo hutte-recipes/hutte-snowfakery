@@ -1,0 +1,43 @@
+- object: Account
+  fields:
+    name:
+      fake: company
+  friends:
+    - object: Contact
+      count: 2
+      fields:
+        FirstName:
+          fake: FirstName
+        LastName:
+          fake: LastName
+      friends:
+        - object: Opportunity
+          count:
+            random_number:
+              min: 1
+              max: 3
+          fields:
+            StageName:
+              random_choice:
+                Prospecting: 50%
+                Qualification: 50%
+            CloseDate: 2022-01-01
+            ContactId:
+              reference: Contact
+            AccountId:
+              reference: Account
+            Name: The ${{Contact.LastName}} Opportunity
+          friends:
+            - object: OpportunityContactRole
+              fields:
+                OpportunityId:
+                  reference: Opportunity
+                ContactId:
+                  reference: Contact
+                Role:
+                  random_choice:
+                    Business User: 20%
+                    Decision Maker: 20%
+                    Economic Buyer: 20%
+                    Economic Decision Maker: 20%
+                    Evaluator: 20%
