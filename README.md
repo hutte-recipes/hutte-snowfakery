@@ -1,6 +1,6 @@
 # Hutte Recipe - Snowfakery
 
-> This recipe uses [Snowfakery](https://snowfakery.readthedocs.io/) and `CumulusCI` to generate data on-the-fly and import it into a Salesforce Org, all by using a Custom Button in Hutte.
+> This recipe uses [Snowfakery](https://snowfakery.readthedocs.io/) and [CumulusCI](https://cumulusci.readthedocs.io/en/stable/intro.html) to generate data on-the-fly and import it into a Salesforce Org, all by using a Custom Button in Hutte.
 
 ![](docs/images/demo-screenshot.png)
 
@@ -16,9 +16,60 @@ The following assumes that we use the `data` directory to store `YAML` recipes f
 
 ### Step 1
 
-Create a `Snowfakery` recipe. (An example is provided in this recipe -> `data/account-contact-opportunity.recipe.yml`).
+Create a `Snowfakery` recipe.
 
-For more information on the creation of `Snowfakery` recipes, the following links may be useful:
+As an example, the next recipe generates `Accounts`, `Contacts`, `Opportunity` and `OpportunityContactRole`, with the required relationships. Source: [Generate Realistic Datasets with Snowfakery](https://medium.com/salesforce-architects/generate-realistic-datasets-with-snowfakery-5349225b033d).
+
+`.data/account-contact-opportunity.recipe.yml`
+
+```yaml
+- object: Account
+  fields:
+    name:
+      fake: company
+  friends:
+    - object: Contact
+      count: 2
+      fields:
+        FirstName:
+          fake: FirstName
+        LastName:
+          fake: LastName
+      friends:
+        - object: Opportunity
+          count:
+            random_number:
+              min: 1
+              max: 3
+          fields:
+            StageName:
+              random_choice:
+                Prospecting: 50%
+                Qualification: 50%
+            CloseDate: 2022-01-01
+            ContactId:
+              reference: Contact
+            AccountId:
+              reference: Account
+            Name: The ${{Contact.LastName}} Opportunity
+          friends:
+            - object: OpportunityContactRole
+              fields:
+                OpportunityId:
+                  reference: Opportunity
+                ContactId:
+                  reference: Contact
+                Role:
+                  random_choice:
+                    Business User: 20%
+                    Decision Maker: 20%
+                    Economic Buyer: 20%
+                    Economic Decision Maker: 20%
+                    Evaluator: 20%
+```
+
+
+For more information on the creation of `Snowfakery` recipes, check the next documentation:
 - [Snowfakery Documentation](https://snowfakery.readthedocs.io/en/latest/)
 - [Snowfakery for Salesforce](https://snowfakery.readthedocs.io/en/latest/salesforce.html)
 - [Fake Data Generation](https://snowfakery.readthedocs.io/en/latest/fakedata.html)
@@ -43,7 +94,6 @@ custom_scripts:
           --generator_yaml data/account-contact-opportunity.recipe.yml \
           --org ${SALESFORCE_USERNAME}
 ```
-An example is found in this recipe with the provided hutte.yml.
 
 Note: If you use a Sandbox instead of a Scratch Org, replace `scratch_org` by `sandbox`. If you want the button to be available for both, duplicate the section using both of the keys.
 
