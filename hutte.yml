@@ -11,3 +11,18 @@ push_script: |
 # hutte to track which metadata was changed.
 pull_script: |
   sfdx force:source:pull --loglevel fatal --json -f | hutte_track_changes
+
+custom_scripts:
+  # This scripts will be displayed on the scratch org's page
+  scratch_org:
+    'Import Data':
+      description: "Import data using Snowfakery"
+      run: |
+        apk add py3-pip libffi-dev gcc musl-dev linux-headers python3-dev
+        pip install wheel
+        pip install --no-build-isolation cumulusci
+        cci org import ${SALESFORCE_USERNAME} ${SALESFORCE_USERNAME}
+        cci task run generate_and_load_from_yaml \
+          --num_records_tablename Opportunity \
+          --generator_yaml data/account-contact-opportunity.recipe.yml \
+          --org ${SALESFORCE_USERNAME}
