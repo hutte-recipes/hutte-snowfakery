@@ -73,6 +73,26 @@ For more information on the creation of `Snowfakery` recipes, check the next doc
 
 ### Step 2
 
+Create a baseline `cumulusci.yml` definition file in the root folder:
+
+`cumulusci.yml`
+
+```yaml
+minimum_cumulusci_version: "3.16.0"
+project:
+    name: Snowfakery
+    package:
+        api_version: "50.0"
+sources:
+    hutte-recipes:
+        github: https://github.com/hutte-recipes/hutte-snowfakery
+```
+
+[More information](https://cumulusci.readthedocs.io/en/stable/config.html).
+
+
+### Step 3
+
 - Edit the `hutte.yml` file in your default branch
 - Add the following button in `custom_scripts > scratch_org`
 
@@ -94,7 +114,7 @@ custom_scripts:
 
 Note: If you use a Sandbox instead of a Scratch Org, replace `scratch_org` by `sandbox`. If you want the button to be available for both, duplicate the section using both of the keys.
 
-### Step 3
+### Step 4
 
 - Create a Scratch Org or open an existing Scratch Org / Sandbox
 - Verify that the button is displayed
