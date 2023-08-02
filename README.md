@@ -94,7 +94,7 @@ custom_scripts:
 
 Note: If you use a Sandbox instead of a Scratch Org, replace `scratch_org` by `sandbox`. If you want the button to be available for both, duplicate the section using both of the keys.
 
-### Step 4
+### Step 3
 
 - Create a Scratch Org or open an existing Scratch Org / Sandbox
 - Verify that the button is displayed
