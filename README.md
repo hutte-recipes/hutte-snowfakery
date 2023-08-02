@@ -6,13 +6,10 @@
 
 ## Prerequisites
 
-- a valid SFDX Project
-- a `hutte.yml` file (e.g. the default one shown in the `Project Settings -> Setup -> Scripts (Hutte.yml)` section of the Hutte project)
-- a source org authenticated with sfdx locally from which you want to export data
+- a valid SFDX Project.
+- a `hutte.yml` file (e.g. the default one shown in the `Project Settings -> Setup -> Scripts (Hutte.yml)` section of the Hutte project).
 
 ## Steps
-
-The following assumes that we use the `data` directory to store `YAML` recipes for Snowfakery data generation.
 
 ### Step 1
 
@@ -99,6 +96,6 @@ Note: If you use a Sandbox instead of a Scratch Org, replace `scratch_org` by `s
 
 ### Step 4
 
-- Create a Scratch Org or open an existing Scratch Org
+- Create a Scratch Org or open an existing Scratch Org / Sandbox
 - Verify that the button is displayed
 - Have fun!
