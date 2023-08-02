@@ -3,6 +3,7 @@
 > This recipe uses [Snowfakery](https://snowfakery.readthedocs.io/) and [CumulusCI](https://cumulusci.readthedocs.io/en/stable/intro.html) to generate data on-the-fly and import it into a Salesforce Org, all by using a Custom Button in Hutte.
 
 ![](docs/images/demo-screenshot.png)
+![](docs/images/demo-screenshot-2.png)
 
 ## Prerequisites
 
