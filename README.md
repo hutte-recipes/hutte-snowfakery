@@ -105,9 +105,6 @@ custom_scripts:
     'Import Data':
       description: "Import data using Snowfakery"
       run: |
-        apk add py3-pip libffi-dev gcc musl-dev linux-headers python3-dev
-        pip install wheel
-        pip install --no-build-isolation cumulusci
         cci org import ${SALESFORCE_USERNAME} ${SALESFORCE_USERNAME}
         cci task run generate_and_load_from_yaml \
           --num_records_tablename Opportunity \
@@ -115,7 +112,9 @@ custom_scripts:
           --org ${SALESFORCE_USERNAME}
 ```
 
-Note: If you use a Sandbox instead of a Scratch Org, replace `scratch_org` by `sandbox`. If you want the button to be available for both, duplicate the section using both of the keys.
+Note 1: [CumulusCI](https://cumulusci.readthedocs.io/en/stable/intro.html) is installed in the Docker Image provided by Hutte, hence no need to worry about its installation in the above script.
+
+Note 2: If you use a Sandbox instead of a Scratch Org, replace `scratch_org` by `sandbox`. If you want the button to be available for both, duplicate the section using both of the keys.
 
 ### Step 4
 
