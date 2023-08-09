@@ -12,9 +12,6 @@ custom_scripts:
     'Import Data':
       description: "Import data using Snowfakery"
       run: |
-        apk add py3-pip libffi-dev gcc musl-dev linux-headers python3-dev
-        pip install wheel
-        pip install --no-build-isolation cumulusci
         cci org import ${SALESFORCE_USERNAME} ${SALESFORCE_USERNAME}
         cci task run generate_and_load_from_yaml \
           --num_records_tablename Opportunity \
