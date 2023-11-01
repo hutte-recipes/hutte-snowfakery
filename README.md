@@ -1,22 +1,11 @@
-# Hutte Recipe - Snowfakery
-
-> This recipe uses [Snowfakery](https://snowfakery.readthedocs.io/) and [CumulusCI](https://cumulusci.readthedocs.io/en/stable/intro.html) to generate data on-the-fly and import it into a Salesforce Org, all by using a Custom Button in Hutte.
-
-Check out the [Hutte Demo](https://www.loom.com/share/09e90ffb04564f6d9b6fb8f3167764ca?sid=f3e22284-3064-4bab-97aa-6bd7ae36985f) to see more about this recipe.
-
-![](docs/images/demo-screenshot.png)
-![](docs/images/demo-screenshot-2.png)
-
 ## Prerequisites
 
-- a valid SFDX Project.
+- a valid sfdx project
 - a `hutte.yml` file (e.g. the default one shown in the `Project Settings -> Setup -> Scripts (Hutte.yml)` section of the Hutte project).
 
-## Steps
+![](https://raw.githubusercontent.com/hutte-recipes/hutte-snowfakery/main/docs/images/demo-screenshot-2.png)
 
-### Step 1
-
-Create a `Snowfakery` recipe.
+## Step 1: Create a Snowfakery recipe
 
 As an example, the next recipe generates `Accounts`, `Contacts`, `Opportunity` and `OpportunityContactRole`, with the required relationships. Source: [Generate Realistic Datasets with Snowfakery](https://medium.com/salesforce-architects/generate-realistic-datasets-with-snowfakery-5349225b033d).
 
@@ -68,13 +57,13 @@ As an example, the next recipe generates `Accounts`, `Contacts`, `Opportunity` a
                     Evaluator: 20%
 ```
 
-
 For more information on the creation of `Snowfakery` recipes, check the next documentation:
+
 - [Snowfakery Documentation](https://snowfakery.readthedocs.io/en/latest/)
 - [Snowfakery for Salesforce](https://snowfakery.readthedocs.io/en/latest/salesforce.html)
 - [Fake Data Generation](https://snowfakery.readthedocs.io/en/latest/fakedata.html)
 
-### Step 2
+## Step 2: Create a CumulusCI definition file
 
 Create a baseline `cumulusci.yml` definition file in the root folder:
 
@@ -83,18 +72,17 @@ Create a baseline `cumulusci.yml` definition file in the root folder:
 ```yaml
 minimum_cumulusci_version: "3.16.0"
 project:
-    name: Snowfakery
-    package:
-        api_version: "50.0"
+  name: Snowfakery
+  package:
+    api_version: "50.0"
 sources:
-    hutte-recipes:
-        github: https://github.com/hutte-recipes/hutte-snowfakery
+  hutte-recipes:
+    github: https://github.com/hutte-recipes/hutte-snowfakery
 ```
 
-[More information](https://cumulusci.readthedocs.io/en/stable/config.html).
+[More information](https://cumulusci.readthedocs.io/en/stable/config.html) on CumulusCI configuration.
 
-
-### Step 3
+## Step 3: Add Custom Script to hutte.yml
 
 - Edit the `hutte.yml` file in your default branch
 - Add the following button in `custom_scripts > scratch_org`
@@ -102,7 +90,7 @@ sources:
 ```yaml
 custom_scripts:
   scratch_org:
-    'Import Data':
+    "Import Data":
       description: "Import data using Snowfakery"
       run: |
         cci org import ${SALESFORCE_USERNAME} ${SALESFORCE_USERNAME}
@@ -116,7 +104,7 @@ Note 1: [CumulusCI](https://cumulusci.readthedocs.io/en/stable/intro.html) is in
 
 Note 2: If you use a Sandbox instead of a Scratch Org, replace `scratch_org` by `sandbox`. If you want the button to be available for both, duplicate the section using both of the keys.
 
-### Step 4
+## Step 4: Validate
 
 - Create a Scratch Org or open an existing Scratch Org / Sandbox
 - Verify that the button is displayed
