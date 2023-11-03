@@ -1,3 +1,11 @@
+# Hutte Recipe - Snowfakery
+
+> This recipe uses [Snowfakery](https://snowfakery.readthedocs.io/) and [CumulusCI](https://cumulusci.readthedocs.io/en/stable/intro.html) to generate data on-the-fly and import it into a Salesforce Org, all by using a Custom Button in Hutte.
+Check out the [Hutte Demo](https://www.loom.com/share/09e90ffb04564f6d9b6fb8f3167764ca?sid=f3e22284-3064-4bab-97aa-6bd7ae36985f) to see more about this recipe.
+
+![](docs/images/demo-screenshot.png)
+![](docs/images/demo-screenshot-2.png)
+
 ## Prerequisites
 
 - a valid sfdx project
