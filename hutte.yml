@@ -3,8 +3,8 @@ version: 1.0
 # Shell script to run when pushing the source code to the scratch orgs.
 # It's a great place to automate tasks like permission set assignments or data loading.
 push_script: |
-  sfdx --version
-  sfdx force:source:push -f --loglevel fatal 1>/dev/null
+  sf --version
+  sf project deploy start
 
 custom_scripts:
   # This scripts will be displayed on the scratch org's page
@@ -12,8 +12,13 @@ custom_scripts:
     'Import Data':
       description: "Import data using Snowfakery"
       run: |
-        cci org import ${SALESFORCE_USERNAME} ${SALESFORCE_USERNAME}
+        apt-get -qq update
+        apt-get -qq -y install pipx > /dev/null
+        pipx install cumulusci
+        export PATH="/root/.local/bin:$PATH"
+        cci version
+        cci org import ${SF_TARGET_ORG} ${SF_TARGET_ORG}
         cci task run generate_and_load_from_yaml \
           --num_records_tablename Opportunity \
           --generator_yaml data/account-contact-opportunity.recipe.yml \
-          --org ${SALESFORCE_USERNAME}
+          --org ${SF_TARGET_ORG}

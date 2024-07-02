@@ -101,11 +101,16 @@ custom_scripts:
     "Import Data":
       description: "Import data using Snowfakery"
       run: |
-        cci org import ${SALESFORCE_USERNAME} ${SALESFORCE_USERNAME}
+        apt-get -qq update
+        apt-get -qq -y install pipx > /dev/null
+        pipx install cumulusci
+        export PATH="/root/.local/bin:$PATH"
+        cci version
+        cci org import ${SF_TARGET_ORG} ${SF_TARGET_ORG}
         cci task run generate_and_load_from_yaml \
           --num_records_tablename Opportunity \
           --generator_yaml data/account-contact-opportunity.recipe.yml \
-          --org ${SALESFORCE_USERNAME}
+          --org ${SF_TARGET_ORG}
 ```
 
 Note 1: [CumulusCI](https://cumulusci.readthedocs.io/en/stable/intro.html) is installed in the Docker Image provided by Hutte, hence no need to worry about its installation in the above script.
